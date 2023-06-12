@@ -5,11 +5,11 @@ function NavBar() {
 
     return(
         <div className = "navbar">
-            <NavLink exact to = "/">Home</NavLink>
-            <NavLink exact to = "/dogs">Dogs</NavLink>
-            <NavLink exact to = "/cats">Cats</NavLink>
-            <NavLink exact to = "/shelters">Shelters</NavLink>
-            <NavLink exact to = "/breeders">Breeders</NavLink>
+            <NavLink to = "/" exact = "true">Home</NavLink>
+            <NavLink to = "/dogs" exact = "true">Dogs</NavLink>
+            <NavLink to = "/cats" exact = "true">Cats</NavLink>
+            <NavLink to = "/shelters" exact = "true">Shelters</NavLink>
+            <NavLink to = "/breeders" exact = "true">Breeders</NavLink>
         </div>
     )
 }
