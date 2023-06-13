@@ -22,6 +22,7 @@ function Breeder() {
                     <h3>About us: {breeder.bio}</h3>
                     <h3>Located at: {breeder.location}</h3>
                     <h4>Established: {breeder.established_date}</h4>
+                    <button>Click to see all dogs and cats.</button>
                 </div>
             )}
         </div>

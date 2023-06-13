@@ -6,6 +6,7 @@ import Cat from './Cat';
 import Shelter from './Shelter';
 import Breeder from './Breeder';
 import Homepage from './Homepage';
+import NewDogForm from './NewDogForm';
 import { Route, Routes } from "react-router-dom"
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
           <Route exact path = "/cats" element = {<Cat />} />
           <Route exact path = "/shelters" element = {<Shelter />} />
           <Route exact path = "/breeders" element = {<Breeder />} />
+          <Route exact path = "/new-dog-form" element = {<NewDogForm />} />
         </Routes>
     </div>
   );
