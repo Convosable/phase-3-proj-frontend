@@ -17,7 +17,6 @@ function Dog() {
           <h1>{dog.name}</h1>
           <img src = {dog.image_url} alt = {dog.name} height="300"/>
           <h4>Age: {dog.age} Sex: {dog.sex}  Weight: {dog.weight} lbs.</h4>
-          <Link/ >
         </div>
       )}
     </div>
