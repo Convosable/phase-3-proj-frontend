@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function Dog() {
 
@@ -13,22 +13,19 @@ function Dog() {
         .then((dogs) => setDogsList(dogs)); 
     }, []);
 
-    function redirectToNewDogForm() {
-        navigate('/new-dog-form')
-    }
-
+    
     return (
     <div className="dogs">
         <div>
             List a dog for Adoption:
-            <button onClick = {redirectToNewDogForm}>Click Here</button>
+            <button onClick = {() => navigate('/new-dog-form')}>Click Here</button>
         </div>
       {dogsList.map((dog) => 
         <div key={dog.id}>
           <h1>{dog.name}</h1>
           <img src = {dog.image_url} alt = {dog.name} height="300"/>
           <h4>Age: {dog.age} Sex: {dog.sex}  Weight: {dog.weight} lbs.</h4>
-          <button>Adopt me!</button> 
+          <Link to={`/dogs/${dog.id}`}>More Details</Link>
         </div>
       )}
     </div>

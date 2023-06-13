@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function NewDogForm() {
 
@@ -16,6 +17,10 @@ function NewDogForm() {
         updated_at: Date.now()
     })
 
+    let navigate = useNavigate();
+
+
+    // add if name agebreed etc is empty alert user the form is emty... except for shelter id or breeder id 
     function handleSubmit(e) {
         e.preventDefault();
         fetch("http://localhost:9292/dogs", {
@@ -26,7 +31,20 @@ function NewDogForm() {
             body: JSON.stringify(formData)
         })
         .then(r => r.json())
-        .then(data => console.log(data))
+        setFormData({
+            name: "",
+            image_url: "",
+            age: "",
+            breed: "",
+            sex: "",
+            weight: "",
+            size: "",
+            shelter_id: "",
+            breeder_id: "",
+            created_at: Date.now(),
+            updated_at: Date.now()
+        })
+        navigate('/dogs')
     }
 
     function handleChange(e) {
@@ -59,7 +77,6 @@ function NewDogForm() {
                 <input onChange = {handleChange} type='text' name='breeder_id' value={formData.breeder_id}/><br></br>
                 <input type="submit" value = "List for adoption!"/>
             </form>
-        
         </div>
     )
 }
