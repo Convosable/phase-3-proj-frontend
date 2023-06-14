@@ -1,18 +1,28 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 function DogDetails() {
 
 
     const [dog, setDog] = useState([])
     const params = useParams();
+    let navigate = useNavigate();
+
 
     useEffect(() => {
         fetch(`http://localhost:9292/dogs/${params.id}`)
         .then(r => r.json())
         .then((doggy) => setDog(doggy))
     },[])
-    
+
+    function handleDelete() {
+        fetch(`http://localhost:9292/dogs/${params.id}`, {
+            method: 'DELETE'
+        })
+        .then(r => r.json())
+        navigate('/dogs')
+        alert('Congratulations on your new pet!')
+    }
 
     return(
         <div>
@@ -21,10 +31,10 @@ function DogDetails() {
             <h2>Breed: {dog.breed}</h2>
             <h4>Age: {dog.age} Sex: {dog.sex} </h4>
             <h4>Weight: {dog.weight} lbs. Size: {dog.size}</h4>
-            <h4>Shelter: {dog.shelter_id}</h4>
             <h4>{dog.shelter_id ? dog.shelter_id : dog.breeder_id}</h4>
             <h4>Posted: {dog.created_at}</h4>
             <h4>Updated: {dog.updated_at}</h4>
+            <button onClick = {handleDelete}>Adopt Me!</button>
         </div>
     )
 }
@@ -35,3 +45,4 @@ export default DogDetails;
 //link breeder info or shelter info
 
 //create a if ? blank : blank for breeder info
+

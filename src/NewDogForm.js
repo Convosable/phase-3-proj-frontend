@@ -17,6 +17,8 @@ function NewDogForm() {
         updated_at: Date.now()
     })
 
+    //need to adjust Date.now to format the correct date
+
     let navigate = useNavigate();
 
 

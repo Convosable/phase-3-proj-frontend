@@ -13,7 +13,7 @@ function Shelter() {
     return (
         <div>
             {sheltersList.map((shelter) => 
-                <div>
+                <div key = {shelter.id}>
                     <h1>{shelter.name}</h1>
                     <h3>About us: {shelter.bio}</h3>
                     <h3>Located at: {shelter.location}</h3>
