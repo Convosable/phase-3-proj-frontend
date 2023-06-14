@@ -24,7 +24,8 @@ function Dog() {
         <div key={dog.id}>
           <h1>{dog.name}</h1>
           <img src = {dog.image_url} alt = {dog.name} height="300"/>
-          <h4>Age: {dog.age} Sex: {dog.sex}  Weight: {dog.weight} lbs.</h4>
+          <h2>Breed: {dog.breed}</h2>
+          <h4>Age: {dog.age} Sex: {dog.sex}</h4>
           <Link to={`/dogs/${dog.id}`}>More Details</Link>
         </div>
       )}
@@ -33,5 +34,3 @@ function Dog() {
 }
 
 export default Dog;
-
-// on adopt me click, cb function will be called to make a delete request and say congradulations yuo adopted {dog.name}
