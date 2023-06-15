@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 
 function NewDogForm() {
 
+    let navigate = useNavigate();
+    
     const [formData, setFormData] = useState({
         name: "",
         image_url: "",
@@ -13,14 +15,9 @@ function NewDogForm() {
         size: "",
         shelter_id: "",
         breeder_id: "",
-        created_at: Date.now(),
-        updated_at: Date.now()
+        created_at: "",
+        updated_at: ""
     })
-
-    //need to adjust Date.now to format the correct date
-
-    let navigate = useNavigate();
-
 
     // add if name agebreed etc is empty alert user the form is emty... except for shelter id or breeder id 
     function handleSubmit(e) {
@@ -43,8 +40,8 @@ function NewDogForm() {
             size: "",
             shelter_id: "",
             breeder_id: "",
-            created_at: Date.now(),
-            updated_at: Date.now()
+            created_at: "",
+            updated_at: ""
         })
         navigate('/dogs')
     }

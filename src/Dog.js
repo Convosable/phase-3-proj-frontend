@@ -44,7 +44,7 @@ function Dog() {
           <h1>{dog.name}</h1>
           <img src = {dog.image_url} alt = {dog.name} height="300"/>
           <h2>Breed: {dog.breed}</h2>
-          <h4>Age: {dog.age} Sex: {dog.sex}</h4>
+          <h4>ID: {dog.id} Age: {dog.age} Sex: {dog.sex}</h4>
           <Link to={`/dogs/${dog.id}`}>More Details</Link>
         </div>
       )}
@@ -54,5 +54,4 @@ function Dog() {
 
 export default Dog;
 
-//add search for dog by id
-//search by breed etc.
+//filter by breed etc.

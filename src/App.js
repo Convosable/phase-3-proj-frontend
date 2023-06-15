@@ -8,6 +8,7 @@ import Breeder from './Breeder';
 import Homepage from './Homepage';
 import NewDogForm from './NewDogForm';
 import DogDetails from './DogDetails';
+import ShelterDetails from './ShelterDetails';
 import { Route, Routes } from "react-router-dom"
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
           <Route exact path = "/breeders" element = {<Breeder />} />
           <Route exact path = "/new-dog-form" element = {<NewDogForm />} />
           <Route exact path = "/dogs/:id" element = {<DogDetails />} />
+          <Route exact path = "/shelters/:id" element = {<ShelterDetails />} />
         </Routes>
     </div>
   );

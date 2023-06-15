@@ -34,6 +34,7 @@ function DogDetails() {
             <h4>{dog.shelter_id ? dog.shelter_id : dog.breeder_id}</h4>
             <h4>Posted: {dog.created_at}</h4>
             <h4>Updated: {dog.updated_at}</h4>
+            <button>Edit</button>
             <button onClick = {handleDelete}>Adopt Me!</button>
         </div>
     )
@@ -45,4 +46,7 @@ export default DogDetails;
 //link breeder info or shelter info
 
 //create a if ? blank : blank for breeder info
+
+
+//need update button AND AN UPDATE IN APPICATION CONTROLLER BACKEND
 
