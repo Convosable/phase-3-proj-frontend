@@ -26,8 +26,12 @@ function ShelterDetails() {
         }
     })
 
-    // can i somehow access the methof from my shelter class and use it instead of a filter?
+    // connect my endpoint for shelter/id/dogs to the friont end in place of the filter
 
+
+    // You should NOT be relying on filtering front end state or a separate fetch request to retrieve related data.
+
+    
     return(
         <div>
             <h1>{shelter.name}</h1>

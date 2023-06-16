@@ -1,18 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import { useNavigate, Link } from "react-router-dom";
 
-function Dog() {
+function Dog( {dogsList} ) {
 
-    const [dogsList, setDogsList] = useState([]);
     const [textInput, setTextInput] = useState({id: ''});
 
     let navigate = useNavigate();
-
-    useEffect(() => {
-        fetch("http://localhost:9292/dogs")
-        .then (r => r.json())
-        .then((dogs) => setDogsList(dogs)); 
-    }, []);
 
     function handleSubmit(e) {
         e.preventDefault();

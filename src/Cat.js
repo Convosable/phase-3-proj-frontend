@@ -1,14 +1,6 @@
 import React, { useState, useEffect} from 'react';
 
-function Cat() {
-
-    const [catsList, setCatsList] = useState([]);
-
-    useEffect(() => {
-        fetch("http://localhost:9292/cats")
-        .then (r => r.json())
-        .then((cats) => setCatsList(cats)); 
-    }, []);
+function Cat( {catsList} ) {
 
     return (
     <div className="cats">
