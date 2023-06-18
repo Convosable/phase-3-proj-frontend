@@ -38,7 +38,12 @@ function App() {
       })
   }, []);
 
+
   if (isLoading) return <h1>Loading...</h1>
+
+  function handleNewDogSubmit(newDog) {
+    setDogsList([...dogsList, newDog])
+  }
 
   return (
     <div className="App">
@@ -48,7 +53,7 @@ function App() {
         <Route exact path="/dogs" element={<Dog dogsList={dogsList} />} />
         <Route exact path="/cats" element={<Cat catsList={catsList} />} />
         <Route exact path="/shelters" element={<Shelter sheltersList={sheltersList} />} />
-        <Route exact path="/new-dog-form" element={<NewDogForm />} />
+        <Route exact path="/new-dog-form" element={<NewDogForm handleNewDogSubmit = {handleNewDogSubmit}/>} />
         <Route exact path="/dogs/:id" element={<DogDetails />} />
         <Route exact path="/shelters/:id" element={<ShelterDetails sheltersList={sheltersList} />} />
       </Routes>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function NewDogForm() {
+function NewDogForm( {handleNewDogSubmit} ) {
 
     let navigate = useNavigate();
     
@@ -20,7 +20,7 @@ function NewDogForm() {
     })
 
     // add if name agebreed etc is empty alert user the form is emty... except for shelter id or breeder id 
-    function handleSubmit(e) {
+    function createDog(e) {
         e.preventDefault();
         fetch("http://localhost:9292/dogs", {
             method: "POST",
@@ -30,6 +30,7 @@ function NewDogForm() {
             body: JSON.stringify(formData)
         })
         .then(r => r.json())
+        .then((newDog) => handleNewDogSubmit(newDog));
         setFormData({
             name: "",
             image_url: "",
@@ -55,7 +56,7 @@ function NewDogForm() {
 
     return(
         <div className = 'new-dog-form'>
-            <form onSubmit = {handleSubmit}>
+            <form onSubmit = {createDog}>
                 <label>Name: </label>
                 <input onChange = {handleChange} type='text' name='name' value={formData.name}/><br></br>
                 <label>Image: </label>

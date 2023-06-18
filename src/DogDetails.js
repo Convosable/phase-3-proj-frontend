@@ -31,7 +31,7 @@ function DogDetails() {
             <h2>Breed: {dog.breed}</h2>
             <h4>Age: {dog.age} Sex: {dog.sex} </h4>
             <h4>Weight: {dog.weight} lbs. Size: {dog.size}</h4>
-            <h4>{dog.shelter_id ? dog.shelter_id : dog.breeder_id}</h4>
+            <h4>Shelter ID: {dog.shelter_id}</h4>
             <h4>Posted: {dog.created_at}</h4>
             <h4>Updated: {dog.updated_at}</h4>
             <button>Edit</button>
@@ -42,8 +42,6 @@ function DogDetails() {
 
 export default DogDetails;
 
-//set up get request to access breeder or shelter .... or maybe i can set up a connection in my applocation controller or model for the shelter object to be available.
-//link breeder info or shelter info
 
 //create a if ? blank : blank for breeder info
 
