@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
 
-function DogDetails() {
+function DogDetails( {handleDogDelete} ) {
 
 
     const [dog, setDog] = useState([])
@@ -15,11 +15,12 @@ function DogDetails() {
         .then((doggy) => setDog(doggy))
     },[])
 
-    function handleDelete() {
+    function adoptDog() {
         fetch(`http://localhost:9292/dogs/${params.id}`, {
             method: 'DELETE'
         })
         .then(r => r.json())
+        .then(dog => handleDogDelete(dog))
         navigate('/dogs')
         alert('Congratulations on your new pet!')
     }
@@ -35,7 +36,7 @@ function DogDetails() {
             <h4>Posted: {dog.created_at}</h4>
             <h4>Updated: {dog.updated_at}</h4>
             <button>Edit</button>
-            <button onClick = {handleDelete}>Adopt Me!</button>
+            <button onClick = {adoptDog}>Adopt Me!</button>
         </div>
     )
 }
