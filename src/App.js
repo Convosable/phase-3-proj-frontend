@@ -19,39 +19,39 @@ function App() {
 
   useEffect(() => {
     fetch("http://localhost:9292/dogs")
-    .then (r => r.json())
-    .then((dogs) => setDogsList(dogs)); 
+      .then(r => r.json())
+      .then((dogs) => setDogsList(dogs));
   }, []);
 
   useEffect(() => {
     fetch("http://localhost:9292/cats")
-    .then (r => r.json())
-    .then((cats) => setCatsList(cats)); 
+      .then(r => r.json())
+      .then((cats) => setCatsList(cats));
   }, []);
 
   useEffect(() => {
     fetch("http://localhost:9292/shelters")
-    .then((r) => r.json())
-    .then(shelters => {
-      setSheltersList(shelters)
-      setIsLoading(false)
-    })
-}, []);
+      .then((r) => r.json())
+      .then(shelters => {
+        setSheltersList(shelters)
+        setIsLoading(false)
+      })
+  }, []);
 
   if (isLoading) return <h1>Loading...</h1>
-  
+
   return (
     <div className="App">
       <NavBar />
-        <Routes>
-          <Route exact path = "/" element = {<Homepage />} />
-          <Route exact path = "/dogs" element = {<Dog dogsList = {dogsList} />} />
-          <Route exact path = "/cats" element = {<Cat catsList = {catsList} />} />
-          <Route exact path = "/shelters" element = {<Shelter sheltersList = {sheltersList} />} />
-          <Route exact path = "/new-dog-form" element = {<NewDogForm />} />
-          <Route exact path = "/dogs/:id" element = {<DogDetails />} />
-          <Route exact path = "/shelters/:id" element = {<ShelterDetails />} />
-        </Routes>
+      <Routes>
+        <Route exact path="/" element={<Homepage />} />
+        <Route exact path="/dogs" element={<Dog dogsList={dogsList} />} />
+        <Route exact path="/cats" element={<Cat catsList={catsList} />} />
+        <Route exact path="/shelters" element={<Shelter sheltersList={sheltersList} />} />
+        <Route exact path="/new-dog-form" element={<NewDogForm />} />
+        <Route exact path="/dogs/:id" element={<DogDetails />} />
+        <Route exact path="/shelters/:id" element={<ShelterDetails sheltersList={sheltersList} />} />
+      </Routes>
     </div>
   );
 }
@@ -60,3 +60,13 @@ export default App;
 
 
 // need to fix proper state managemtent when making my POST UPDATE OR DELETE REQUESTS
+
+// App
+  //Homepage
+  //NavBar
+  //Cat
+    //CatDetails
+  //Dog
+    //DogDetails
+  //Shelter
+    //ShelterDetails

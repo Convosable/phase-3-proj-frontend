@@ -3,42 +3,29 @@ import { useParams } from "react-router-dom";
 
 function ShelterDetails() {
 
-    const [shelter, setShelter] = useState('');
+    const [shelter, setShelter] = useState([]);
     const [dogs, setDogs] = useState([]);
-    const params = useParams();
+    const {id} = useParams();
 
 
     useEffect(() => {
-        fetch(`http://localhost:9292/shelters/${params.id}`)
+        fetch(`http://localhost:9292/shelters/${id}`)
         .then(r => r.json())
-        .then((animalShelter) => setShelter(animalShelter))
-    },[])
+        .then((animalShelter) => {
+            let dogs = animalShelter.dogs
+            setDogs(dogs)
+            setShelter(animalShelter)
+        })
+    }, [id])
 
-    useEffect(() => {
-        fetch(`http://localhost:9292/dogs`)
-        .then(r => r.json())
-        .then((allDogs) => setDogs(allDogs))
-    }, [])
+    if (!dogs) return <h2>Loading...</h2>
 
-    const filterDogsByShelter = dogs.filter(dog => {
-        if(shelter.id === dog.shelter_id) {
-            return dog
-        }
-    })
-
-    // connect my endpoint for shelter/id/dogs to the friont end in place of the filter
-
-
-    // You should NOT be relying on filtering front end state or a separate fetch request to retrieve related data.
-
-    
     return(
         <div>
             <h1>{shelter.name}</h1>
-
-            {filterDogsByShelter.map((dog) =>
+            {dogs.map(dog =>
                 <div>
-                    {dog.name}
+                    <h1>{dog.name}</h1>
                 </div>
             )}
         </div>
