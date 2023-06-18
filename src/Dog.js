@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import DogCard from "./DogCard";
+
 
 function Dog( {dogsList} ) {
 
@@ -32,15 +34,7 @@ function Dog( {dogsList} ) {
                 <input type="submit" value = "Search"/>
             </form>
         </div>
-      {dogsList.map((dog) => 
-        <div key={dog.id}>
-          <h1>{dog.name}</h1>
-          <img src = {dog.image_url} alt = {dog.name} height="300"/>
-          <h2>Breed: {dog.breed}</h2>
-          <h4>ID: {dog.id} Age: {dog.age} Sex: {dog.sex}</h4>
-          <Link to={`/dogs/${dog.id}`}>More Details</Link>
-        </div>
-      )}
+        <DogCard dogsList = {dogsList}/>
     </div>
   );
 }

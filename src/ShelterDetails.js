@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 function ShelterDetails() {
 
@@ -18,15 +18,17 @@ function ShelterDetails() {
         })
     }, [id])
 
-    if (!dogs) return <h2>Loading...</h2>
-
     return(
         <div>
             <h1>{shelter.name}</h1>
             {dogs.map(dog =>
-                <div>
-                    <h1>{dog.name}</h1>
-                </div>
+                <div key={dog.id}>
+                <h1>{dog.name}</h1>
+                <img src = {dog.image_url} alt = {dog.name} height="300"/>
+                <h2>Breed: {dog.breed}</h2>
+                <h4>ID: {dog.id} Age: {dog.age} Sex: {dog.sex}</h4>
+                <Link to={`/dogs/${dog.id}`}>More Details</Link>
+            </div>
             )}
         </div>
     )
