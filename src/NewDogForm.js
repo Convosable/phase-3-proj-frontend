@@ -73,8 +73,6 @@ function NewDogForm( {handleNewDogSubmit} ) {
                 <input onChange = {handleChange} type='text' name='size' value={formData.size}/><br></br>
                 <label>Shelter ID: </label>
                 <input onChange = {handleChange} type='text' name='shelter_id' value={formData.shelter_id}/><br></br>
-                <label>Breeder ID: </label>
-                <input onChange = {handleChange} type='text' name='breeder_id' value={formData.breeder_id}/><br></br>
                 <input type="submit" value = "List for adoption!"/>
             </form>
         </div>
