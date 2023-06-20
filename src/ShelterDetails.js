@@ -5,6 +5,7 @@ function ShelterDetails() {
 
     const [shelter, setShelter] = useState([]);
     const [dogs, setDogs] = useState([]);
+    const [cats, setCats] = useState([]);
     const {id} = useParams();
 
 
@@ -12,8 +13,11 @@ function ShelterDetails() {
         fetch(`http://localhost:9292/shelters/${id}`)
         .then(r => r.json())
         .then((animalShelter) => {
-            let dogs = animalShelter.dogs
-            setDogs(dogs)
+            console.log(animalShelter)
+            const shelterCats = animalShelter.cats
+            const shelterDogs = animalShelter.dogs
+            setDogs(shelterDogs)
+            setCats(shelterCats)
             setShelter(animalShelter)
         })
     }, [id])
@@ -21,6 +25,7 @@ function ShelterDetails() {
     return(
         <div>
             <h1>{shelter.name}</h1>
+            <h2>Dogs:</h2>
             {dogs.map(dog =>
                 <div key={dog.id}>
                 <h1>{dog.name}</h1>
@@ -30,8 +35,19 @@ function ShelterDetails() {
                 <Link to={`/dogs/${dog.id}`}>More Details</Link>
             </div>
             )}
+            <h2>Cats:</h2>
+            {cats.map(cat =>
+                <div key={cat.id}>
+                <h1>{cat.name}</h1>
+                <img src = {cat.image_url} alt = {cat.name} height="300"/>
+                <h2>Breed: {cat.breed}</h2>
+                <h4>ID: {cat.id} Age: {cat.age} Sex: {cat.sex}</h4>
+                <Link to={`/cats/${cat.id}`}>More Details</Link>
+            </div>
+            )}
         </div>
     )
 }
 
 export default ShelterDetails;
+// add a filter by dogs and cats

@@ -68,14 +68,14 @@ function App() {
 
   function handleCatDelete(cat) {
     const updatedCats = catsList.filter( c => c.id !== cat.id)
-    setDogsList(updatedCats)
+    setCatsList(updatedCats)
   }
 
   function handleCatUpdate(cat) {
     const updatedCat = catsList.map( c => {
       if (c.id === cat.id) {
         return cat
-      } 
+      }
       return c
     })
     setCatsList(updatedCat)
