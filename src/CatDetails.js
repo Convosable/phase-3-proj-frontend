@@ -4,7 +4,19 @@ import { useParams, useNavigate } from 'react-router-dom';
 function CatDetails( {handleCatDelete, handleCatUpdate} ) {
 
     const [isHidden, setIsHidden] = useState(true)
-    const [cat, setCat] = useState([])
+    const [cat, setCat] = useState({
+        name: "",
+        image_url: "",
+        age: "",
+        breed: "",
+        sex: "",
+        weight: "",
+        size: "",
+        shelter_id: "",
+        breeder_id: "",
+        created_at: "",
+        updated_at: ""
+    })
 
     const params = useParams();
     let navigate = useNavigate();
