@@ -9,6 +9,7 @@ import NewDogForm from './NewDogForm';
 import DogDetails from './DogDetails';
 import ShelterDetails from './ShelterDetails';
 import NewCatForm from './NewCatForm';
+import CatDetails from './CatDetails';
 import { Route, Routes } from "react-router-dom"
 
 function App() {
@@ -65,17 +66,34 @@ function App() {
     setCatsList([...catsList, newCat])
   }
 
+  function handleCatDelete(cat) {
+    const updatedCats = catsList.filter( c => c.id !== cat.id)
+    setDogsList(updatedCats)
+  }
+
+  function handleCatUpdate(cat) {
+    const updatedCat = catsList.map( c => {
+      if (c.id === cat.id) {
+        return cat
+      } 
+      return c
+    })
+    setCatsList(updatedCat)
+  }
+
+
   return (
     <div className="App">
       <NavBar />
       <Routes>
         <Route exact path="/" element={<Homepage />} />
         <Route exact path="/dogs" element={<Dog dogsList={dogsList} />} />
-        <Route exact path="/cats" element={<Cat catsList={catsList} />} />
-        <Route exact path="/shelters" element={<Shelter sheltersList={sheltersList} />} />
-        <Route exact path="/new-dog-form" element={<NewDogForm handleNewDogSubmit = {handleNewDogSubmit}/>} />
-        <Route exact path="/new-cat-form" element={<NewCatForm handleNewCatSubmit = {handleNewCatSubmit}/>}></Route>
         <Route exact path="/dogs/:id" element={<DogDetails handleDogUpdate = {handleDogUpdate} handleDogDelete = {handleDogDelete}/>} />
+        <Route exact path="/new-dog-form" element={<NewDogForm handleNewDogSubmit = {handleNewDogSubmit}/>} />
+        <Route exact path="/cats" element={<Cat catsList={catsList} />} />
+        <Route exact path="/new-cat-form" element={<NewCatForm handleNewCatSubmit = {handleNewCatSubmit}/>}></Route>
+        <Route exact path="/cats/:id" element={<CatDetails handleCatUpdate = {handleCatUpdate} handleCatDelete = {handleCatDelete}/>} />
+        <Route exact path="/shelters" element={<Shelter sheltersList={sheltersList} />} />
         <Route exact path="/shelters/:id" element={<ShelterDetails sheltersList={sheltersList} />} />
       </Routes>
     </div>

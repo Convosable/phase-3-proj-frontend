@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function Cat( {catsList} ) {
 
@@ -39,6 +39,7 @@ function Cat( {catsList} ) {
           <h1>{cat.name}</h1>
           <img src = {cat.image_url} alt = {cat.name} height="300"/>
           <h4>ID: {cat.id} Age: {cat.age} Sex: {cat.sex}  Weight: {cat.weight} lbs.</h4>
+          <Link to={`/cats/${cat.id}`}>More Details</Link>
         </div>
       )}
     </div>

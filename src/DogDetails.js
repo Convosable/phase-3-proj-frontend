@@ -23,7 +23,7 @@ function DogDetails( {handleDogDelete, handleDogUpdate} ) {
         .then(r => r.json())
         .then(dog => handleDogDelete(dog))
         navigate('/dogs')
-        alert('Congratulations on your new pet!')
+        alert('Congratulations on your new dog!')
     }
 
     function updateDogDetails() {
