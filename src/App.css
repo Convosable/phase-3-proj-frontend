@@ -1,6 +1,55 @@
 .App {
   text-align: center;
+  padding-top: 50px;
 }
+
+.not-visible {
+  visibility: hidden;
+}
+
+.shelter-details {
+  display: flex;
+  height: 100vh;
+}
+.shelter-details-dogs {
+  height: 100%;
+  width: 50%;
+  z-index: 1;
+  top: 0;
+  overflow-x: hidden;
+  left: 0;
+}
+
+.shelter-details-cats {
+  height: 100%;
+  width: 50%;
+  z-index: 1;
+  top: 0;
+  overflow-x: hidden;
+  right: 0;
+}
+
+.navbar {
+  font-size: 25px;
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+
+
+
+
+
+
+
+
+
+
+/* 
+
 
 .App-logo {
   height: 40vmin;
@@ -36,12 +85,4 @@
     transform: rotate(360deg);
   }
 }
-
-.not-visible {
-  color: green;
-  visibility: hidden;
-}
-
-.visible {
-  color:blue
-}
+ */
