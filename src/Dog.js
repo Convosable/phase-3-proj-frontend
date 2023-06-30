@@ -40,5 +40,3 @@ function Dog( {dogsList} ) {
 }
 
 export default Dog;
-
-//filter by breed etc.

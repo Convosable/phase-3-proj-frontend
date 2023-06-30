@@ -21,11 +21,10 @@ function DogDetails( {handleDogDelete, handleDogUpdate} ) {
     const params = useParams();
     let navigate = useNavigate();
 
-
     useEffect(() => {
         fetch(`http://localhost:9292/dogs/${params.id}`)
         .then(r => r.json())
-        .then((doggy) => setDog(doggy))
+        .then((d) => setDog(d))
     },[])
 
     function adoptDog() {
@@ -35,7 +34,7 @@ function DogDetails( {handleDogDelete, handleDogUpdate} ) {
         .then(r => r.json())
         .then(dog => handleDogDelete(dog))
         navigate('/dogs')
-        alert('Congratulations on your new dog!')
+        alert(`Congratulations on adopting ${dog.name}!`)
     }
 
     function updateDogDetails() {
@@ -109,10 +108,3 @@ function DogDetails( {handleDogDelete, handleDogUpdate} ) {
 }
 
 export default DogDetails;
-
-
-//create a if ? blank : blank for breeder info
-
-
-//need update button AND AN UPDATE IN APPICATION CONTROLLER BACKEND
-

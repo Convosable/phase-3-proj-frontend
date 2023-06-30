@@ -101,16 +101,3 @@ function App() {
 }
 
 export default App;
-
-
-// need to fix proper state managemtent when making my POST UPDATE OR DELETE REQUESTS
-
-// App
-  //Homepage
-  //NavBar
-  //Cat
-    //CatDetails
-  //Dog
-    //DogDetails
-  //Shelter
-    //ShelterDetails

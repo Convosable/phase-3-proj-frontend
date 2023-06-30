@@ -25,7 +25,7 @@ function CatDetails( {handleCatDelete, handleCatUpdate} ) {
     useEffect(() => {
         fetch(`http://localhost:9292/cats/${params.id}`)
         .then(r => r.json())
-        .then((kitty) => setCat(kitty))
+        .then((c) => setCat(c))
     },[])
 
     function adoptCat() {
@@ -35,7 +35,7 @@ function CatDetails( {handleCatDelete, handleCatUpdate} ) {
         .then(r => r.json())
         .then(cat => handleCatDelete(cat))
         navigate('/cats')
-        alert('Congratulations on your new cat!')
+        alert(`Congratulations on adopting ${cat.name}!`)
     }
 
     function updateCatDetails() {

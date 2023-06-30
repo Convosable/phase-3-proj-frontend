@@ -19,7 +19,6 @@ function NewDogForm( {handleNewDogSubmit} ) {
         updated_at: ""
     })
 
-    // add if name agebreed etc is empty alert user the form is emty... except for shelter id or breeder id 
     function createDog(e) {
         e.preventDefault();
         fetch("http://localhost:9292/dogs", {
