@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 
 function DogDetails( {handleDogDelete, handleDogUpdate} ) {
 
@@ -12,8 +12,8 @@ function DogDetails( {handleDogDelete, handleDogUpdate} ) {
         sex: "",
         weight: "",
         size: "",
+        shelter: {},
         shelter_id: "",
-        breeder_id: "",
         created_at: "",
         updated_at: ""
     })
@@ -24,7 +24,10 @@ function DogDetails( {handleDogDelete, handleDogUpdate} ) {
     useEffect(() => {
         fetch(`http://localhost:9292/dogs/${params.id}`)
         .then(r => r.json())
-        .then((d) => setDog(d))
+        .then((d) => {
+            console.log(d)
+            setDog(d)
+        })
     },[])
 
     function adoptDog() {
@@ -51,8 +54,8 @@ function DogDetails( {handleDogDelete, handleDogUpdate} ) {
                 sex: dog.sex,
                 weight: dog.weight,
                 size: dog.size,
+                shelter: dog.shelter.name,
                 shelter_id: dog.shelter_id,
-                breeder_id: dog.breeder_id,
                 created_at: dog.created_at,
                 updated_at: dog.updated_at
             }),
@@ -75,7 +78,9 @@ function DogDetails( {handleDogDelete, handleDogUpdate} ) {
             <h2>Breed: {dog.breed}</h2>
             <h4>Age: {dog.age} Sex: {dog.sex} </h4>
             <h4>Weight: {dog.weight} lbs. Size: {dog.size}</h4>
-            <h4>Shelter ID: {dog.shelter_id}</h4>
+            <Link to={`/shelters/${dog.shelter_id}`}>
+                <h4>Shelter: {dog.shelter.name}</h4>
+            </Link>
             <h4>Posted: {dog.created_at}</h4>
             <h4>Updated: {dog.updated_at}</h4>
             <button onClick = {() => setIsHidden(isHidden => !isHidden)}>Edit</button>
@@ -98,8 +103,6 @@ function DogDetails( {handleDogDelete, handleDogUpdate} ) {
                     <input onChange = {handleChange} type='text' name='weight' value={dog.weight}/><br></br>
                     <label>Size: </label>
                     <input onChange = {handleChange} type='text' name='size' value={dog.size}/><br></br>
-                    <label>Shelter ID: </label>
-                    <input onChange = {handleChange} type='text' name='shelter_id' value={dog.shelter_id}/><br></br>
                     <input type="submit" value = "Update dog details!"/>
                 </form>
             </div>
