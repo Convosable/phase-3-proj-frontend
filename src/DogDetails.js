@@ -30,8 +30,6 @@ function DogDetails( {handleDogDelete, handleDogUpdate} ) {
         })
     },[])
 
-    console.log(dog.shelter)
-
     function adoptDog() {
         fetch(`http://localhost:9292/dogs/${params.id}`, {
             method: 'DELETE'
@@ -39,19 +37,8 @@ function DogDetails( {handleDogDelete, handleDogUpdate} ) {
         .then(r => r.json())
         .then(dog => handleDogDelete(dog))
         navigate(`/shelters/${dog.shelter_id}`)
-        // gotta get rid of navigate
         alert(`Congratulations on adopting ${dog.name}!`)
     }
-
-
-
-    function handleDogDelete(dog) {
-        const updatedDogs = dog.shelter.dogs.filter( d => d.id !== dog.id)
-        setDog(updatedDogs)
-    }
-
-
-    
 
     function updateDogDetails() {
         fetch(`http://localhost:9292/dogs/${params.id}`, {

@@ -70,7 +70,6 @@ function App() {
     setSheltersList(updatedShelters)
   }
 
-  console.log(sheltersList)
   function handleCatDelete(cat) {
     const updatedShelters = sheltersList.map(shelter => {
       if (shelter.id === cat.shelter_id) {
@@ -80,14 +79,25 @@ function App() {
       return shelter
     })
     setSheltersList(updatedShelters)
-}
+  }
+
+  function handleDogDelete(dog) {
+    const updatedShelters = sheltersList.map(shelter => {
+      if(shelter.id === dog.shelter_id) {
+        const updatedDogs = shelter.dogs.filter(d => d.id !== dog.id);
+        return {...shelter, dogs: updatedDogs}
+      }
+      return shelter
+    })
+    setSheltersList(updatedShelters)
+  }
 
   return (
     <div className="App">
       <NavBar />
       <Routes>
         <Route exact path="/" element={<Homepage />} />
-        <Route path="/dogs/:id" element={<DogDetails />} />
+        <Route path="/dogs/:id" element={<DogDetails handleDogDelete = {handleDogDelete}/>} />
         <Route exact path="/cats/:id" element={<CatDetails handleCatDelete = {handleCatDelete}/>} />
         <Route exact path="/shelters" element={<Shelters sheltersList={sheltersList} />} />
         <Route exact path="/shelters/:id" element={<ShelterDetails sheltersList={sheltersList} handleShelterDelete = {handleShelterDelete}/>} />
