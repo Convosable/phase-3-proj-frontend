@@ -1,8 +1,6 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
 import NavBar from './NavBar';
-import Dog from './Dog';
-import Cat from './Cat';
 import Shelters from './Shelters';
 import Homepage from './Homepage';
 import DogDetails from './DogDetails';
@@ -28,10 +26,6 @@ function App() {
 
 
   if (isLoading) return <h1>Loading...</h1>
-
-  function handleNewDogSubmit(newDog) {
-    setSheltersList([...sheltersList, newDog])
-  }
 
   // function handleDogDelete(dog) {
   //   const updatedDogs = dogsList.filter( d => d.id !== dog.id)
@@ -76,16 +70,25 @@ function App() {
     setSheltersList(updatedShelters)
   }
 
+  console.log(sheltersList)
+  function handleCatDelete(cat) {
+    const updatedShelters = sheltersList.map(shelter => {
+      if (shelter.id === cat.shelter_id) {
+        const updatedCats = shelter.cats.filter(c => c.id !== cat.id);
+        return {...shelter, cats: updatedCats}
+      }
+      return shelter
+    })
+    setSheltersList(updatedShelters)
+}
+
   return (
     <div className="App">
       <NavBar />
       <Routes>
         <Route exact path="/" element={<Homepage />} />
-        <Route exact path="/dogs" element={<Dog sheltersList={sheltersList} />} />
         <Route path="/dogs/:id" element={<DogDetails />} />
-        {/* <Route exact path="/cats" element={<Cat catsList={catsList} />} />
-        <Route exact path="/new-cat-form" element={<NewCatForm handleNewCatSubmit = {handleNewCatSubmit}/>}></Route>
-        <Route exact path="/cats/:id" element={<CatDetails handleCatUpdate = {handleCatUpdate} handleCatDelete = {handleCatDelete}/>} /> */}
+        <Route exact path="/cats/:id" element={<CatDetails handleCatDelete = {handleCatDelete}/>} />
         <Route exact path="/shelters" element={<Shelters sheltersList={sheltersList} />} />
         <Route exact path="/shelters/:id" element={<ShelterDetails sheltersList={sheltersList} handleShelterDelete = {handleShelterDelete}/>} />
         <Route exact path="/new-shelter-form" element={<NewShelterForm handleNewShelterSubmit = {handleNewShelterSubmit}/>} />

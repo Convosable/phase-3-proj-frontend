@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 
 function CatDetails( {handleCatDelete, handleCatUpdate} ) {
 
@@ -12,8 +12,8 @@ function CatDetails( {handleCatDelete, handleCatUpdate} ) {
         sex: "",
         weight: "",
         size: "",
+        shelter: {},
         shelter_id: "",
-        breeder_id: "",
         created_at: "",
         updated_at: ""
     })
@@ -34,7 +34,7 @@ function CatDetails( {handleCatDelete, handleCatUpdate} ) {
         })
         .then(r => r.json())
         .then(cat => handleCatDelete(cat))
-        navigate('/cats')
+        navigate(`/shelters/${cat.shelter_id}`)
         alert(`Congratulations on adopting ${cat.name}!`)
     }
 
@@ -52,8 +52,8 @@ function CatDetails( {handleCatDelete, handleCatUpdate} ) {
                 sex: cat.sex,
                 weight: cat.weight,
                 size: cat.size,
+                shelter: cat.shelter.name,
                 shelter_id: cat.shelter_id,
-                breeder_id: cat.breeder_id,
                 created_at: cat.created_at,
                 updated_at: cat.updated_at
             }),
@@ -76,7 +76,9 @@ function CatDetails( {handleCatDelete, handleCatUpdate} ) {
             <h2>Breed: {cat.breed}</h2>
             <h4>Age: {cat.age} Sex: {cat.sex} </h4>
             <h4>Weight: {cat.weight} lbs. Size: {cat.size}</h4>
-            <h4>Shelter ID: {cat.shelter_id}</h4>
+            <Link to={`/shelters/${cat.shelter_id}`}>
+                <h4>Shelter: {cat.shelter.name}</h4>
+            </Link>
             <h4>Posted: {cat.created_at}</h4>
             <h4>Updated: {cat.updated_at}</h4>
             <button onClick = {() => setIsHidden(isHidden => !isHidden)}>Edit</button>
@@ -99,8 +101,6 @@ function CatDetails( {handleCatDelete, handleCatUpdate} ) {
                     <input onChange = {handleChange} type='text' name='weight' value={cat.weight}/><br></br>
                     <label>Size: </label>
                     <input onChange = {handleChange} type='text' name='size' value={cat.size}/><br></br>
-                    <label>Shelter ID: </label>
-                    <input onChange = {handleChange} type='text' name='shelter_id' value={cat.shelter_id}/><br></br>
                     <input type="submit" value = "Update cat details!"/>
                 </form>
             </div>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import NewDogForm from "./NewDogForm";
+import NewCatForm from "./NewCatForm";
 
 function ShelterDetails( {handleShelterDelete} ) {
 
@@ -39,7 +40,14 @@ function ShelterDetails( {handleShelterDelete} ) {
 
     function handleNewDogSubmit(newDog) {
         setShelter({...shelter, dogs: [...shelter.dogs, newDog]})
+        setIsHidden(true)
       }
+    
+    function handleNewCatSubmit(newCat) {
+    setShelter({...shelter, cats: [...shelter.cats, newCat]})
+    setIsHidden(true)
+    }
+   
 
     if (isLoading) return <h1>Loading...</h1>
 
@@ -73,6 +81,10 @@ function ShelterDetails( {handleShelterDelete} ) {
                 </div>
                 <div className="shelter-details-cats">
                     <h1>Cats</h1>
+                    <button onClick = {() => setIsHidden(isHidden => !isHidden)}>List new cat for adoption!</button>
+                        <div className= {isHidden ? 'not-visible' : 'visible'}>
+                            <NewCatForm shelter = {shelter} handleNewCatSubmit = {handleNewCatSubmit}/>
+                        </div>
                     <p>There {totalCats > 1 ? "are" : "is"} {totalCats} {totalCats > 1 ? "cats" : "cat"} available for adoption.</p>
                     {shelter.cats.map(cat =>
                         <div key={cat.id}>

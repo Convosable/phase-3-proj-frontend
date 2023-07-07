@@ -1,10 +1,7 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
-function NewCatForm( {handleNewCatSubmit} ) {
+function NewCatForm( {handleNewCatSubmit, shelter} ) {
 
-    let navigate = useNavigate();
-    
     const [formData, setFormData] = useState({
         name: "",
         image_url: "",
@@ -13,8 +10,7 @@ function NewCatForm( {handleNewCatSubmit} ) {
         sex: "",
         weight: "",
         size: "",
-        shelter_id: "",
-        breeder_id: "",
+        shelter_id: shelter.id,
         created_at: "",
         updated_at: ""
     })
@@ -38,12 +34,10 @@ function NewCatForm( {handleNewCatSubmit} ) {
             sex: "",
             weight: "",
             size: "",
-            shelter_id: "",
-            breeder_id: "",
+            shelter_id: shelter.id,
             created_at: "",
             updated_at: ""
         })
-        navigate('/cats')
     }
 
     function handleChange(e) {
@@ -54,7 +48,7 @@ function NewCatForm( {handleNewCatSubmit} ) {
     }
 
     return(
-        <div className = 'new-cat-form'>
+        <div className = 'new-dog-form'>
             <form onSubmit = {createCat}>
                 <label>Name: </label>
                 <input onChange = {handleChange} type='text' name='name' value={formData.name}/><br></br>
@@ -70,8 +64,6 @@ function NewCatForm( {handleNewCatSubmit} ) {
                 <input onChange = {handleChange} type='text' name='weight' value={formData.weight}/><br></br>
                 <label>Size: </label>
                 <input onChange = {handleChange} type='text' name='size' value={formData.size}/><br></br>
-                <label>Shelter ID: </label>
-                <input onChange = {handleChange} type='text' name='shelter_id' value={formData.shelter_id}/><br></br>
                 <input type="submit" value = "List for adoption!"/>
             </form>
         </div>
