@@ -5,7 +5,6 @@ import Shelters from './Shelters';
 import Homepage from './Homepage';
 import DogDetails from './DogDetails';
 import ShelterDetails from './ShelterDetails';
-import NewCatForm from './NewCatForm';
 import CatDetails from './CatDetails';
 import NewShelterForm from './NewShelterForm';
 import { Route, Routes } from "react-router-dom"
@@ -26,40 +25,6 @@ function App() {
 
 
   if (isLoading) return <h1>Loading...</h1>
-
-  // function handleDogDelete(dog) {
-  //   const updatedDogs = dogsList.filter( d => d.id !== dog.id)
-  //   setDogsList(updatedDogs)
-  // }
-
-  // function handleDogUpdate(dog) {
-  //   const updatedDog = dogsList.map( d => {
-  //     if (d.id === dog.id) {
-  //       return dog
-  //     } 
-  //     return d
-  //   })
-  //   setDogsList(updatedDog)
-  // }
-
-  // function handleNewCatSubmit(newCat) {
-  //   setCatsList([...catsList, newCat])
-  // }
-
-  // function handleCatDelete(cat) {
-  //   const updatedCats = catsList.filter( c => c.id !== cat.id)
-  //   setCatsList(updatedCats)
-  // }
-
-  // function handleCatUpdate(cat) {
-  //   const updatedCat = catsList.map( c => {
-  //     if (c.id === cat.id) {
-  //       return cat
-  //     }
-  //     return c
-  //   })
-  //   setCatsList(updatedCat)
-  // }
 
   function handleNewShelterSubmit(newShelter) {
     setSheltersList([...sheltersList, newShelter])
@@ -92,13 +57,46 @@ function App() {
     setSheltersList(updatedShelters)
   }
 
+  function handleDogUpdate(dog) {
+    const updatedShelters = sheltersList.map(shelter => {
+      if (shelter.id === dog.shelter_id) {
+        const updatedDogs = shelter.dogs.map(d => {
+          if(d.id === dog.id) {
+            return dog
+          }
+          return d
+        })
+        return {...shelter, dogs: updatedDogs}
+      }
+      return shelter
+    })
+    setSheltersList(updatedShelters)
+  }
+
+  function handleCatUpdate(cat) {
+    const updatedShelters = sheltersList.map(shelter => {
+      if (shelter.id === cat.shelter_id) {
+        const updatedCats = shelter.cats.map(c => {
+          if(c.id === cat.id) {
+            return cat
+          }
+          return c
+        })
+        return {...shelter, cats: updatedCats}
+      }
+      return shelter
+    })
+    setSheltersList(updatedShelters)
+  }
+
+
   return (
     <div className="App">
       <NavBar />
       <Routes>
         <Route exact path="/" element={<Homepage />} />
-        <Route path="/dogs/:id" element={<DogDetails handleDogDelete = {handleDogDelete}/>} />
-        <Route exact path="/cats/:id" element={<CatDetails handleCatDelete = {handleCatDelete}/>} />
+        <Route path="/dogs/:id" element={<DogDetails handleDogDelete = {handleDogDelete} handleDogUpdate = {handleDogUpdate}/>} />
+        <Route exact path="/cats/:id" element={<CatDetails handleCatDelete = {handleCatDelete} handleCatUpdate = {handleCatUpdate}/>} />
         <Route exact path="/shelters" element={<Shelters sheltersList={sheltersList} />} />
         <Route exact path="/shelters/:id" element={<ShelterDetails sheltersList={sheltersList} handleShelterDelete = {handleShelterDelete}/>} />
         <Route exact path="/new-shelter-form" element={<NewShelterForm handleNewShelterSubmit = {handleNewShelterSubmit}/>} />

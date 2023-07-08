@@ -24,10 +24,7 @@ function DogDetails( {handleDogDelete, handleDogUpdate} ) {
     useEffect(() => {
         fetch(`http://localhost:9292/dogs/${params.id}`)
         .then(r => r.json())
-        .then((d) => {
-            console.log(d)
-            setDog(d)
-        })
+        .then((d) => {setDog(d)})
     },[])
 
     function adoptDog() {
