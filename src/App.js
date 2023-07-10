@@ -30,10 +30,13 @@ function App() {
     setSheltersList([...sheltersList, newShelter])
   }
 
-  function handleShelterDelete(shelter) {
-    const updatedShelters = sheltersList.filter( s => s.id !== shelter.id)
+  function handleShelterDelete(id) {
+    console.log(id)
+    const updatedShelters = sheltersList.filter(s => s.id !== parseInt(id))
     setSheltersList(updatedShelters)
   }
+
+  console.log(sheltersList)
 
   function handleCatDelete(cat) {
     const updatedShelters = sheltersList.map(shelter => {
@@ -99,10 +102,12 @@ function App() {
         <Route exact path="/cats/:id" element={<CatDetails handleCatDelete = {handleCatDelete} handleCatUpdate = {handleCatUpdate}/>} />
         <Route exact path="/shelters" element={<Shelters sheltersList={sheltersList} />} />
         <Route exact path="/shelters/:id" element={<ShelterDetails sheltersList={sheltersList} handleShelterDelete = {handleShelterDelete}/>} />
-        <Route exact path="/new-shelter-form" element={<NewShelterForm handleNewShelterSubmit = {handleNewShelterSubmit}/>} />
+        <Route exact path="/shelters/new" element={<NewShelterForm handleNewShelterSubmit = {handleNewShelterSubmit}/>} />
       </Routes>
     </div>
   );
 }
 
 export default App;
+
+//new-shleter-form is not restful at all!! change to shelters/id/new

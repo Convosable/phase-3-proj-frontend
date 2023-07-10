@@ -3,7 +3,7 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import NewDogForm from "./NewDogForm";
 import NewCatForm from "./NewCatForm";
 
-function ShelterDetails( {handleShelterDelete} ) {
+function ShelterDetails( {handleShelterDelete, sheltersList} ) {
 
     const [shelter, setShelter] = useState({
         dogs: [],
@@ -15,37 +15,32 @@ function ShelterDetails( {handleShelterDelete} ) {
     const {id} = useParams();
     const navigate = useNavigate();
 
-    const totalDogs = shelter.dogs.length;
-    const totalCats = shelter.cats.length;
-
-
     useEffect(() => {
-        fetch(`http://localhost:9292/shelters/${id}`)
-        .then(r => r.json())
-        .then((animalShelter) => {
-            setShelter(animalShelter)
+        const correctShelter = sheltersList.find(shelter => shelter.id === parseInt(id))
+        if (correctShelter) {
+            setShelter(correctShelter);
             setIsLoading(false)
-        })
-    }, [id])
+        }
+    }, [id, sheltersList])
+
 
     function deleteShelter() {
         fetch(`http://localhost:9292/shelters/${id}`, {
             method: 'DELETE'
         })
-        .then(r => r.json())
-        .then(shelter => handleShelterDelete(shelter))
+        .then(handleShelterDelete(id))
+        alert(`${shelter.name} succesfully deleted!`) 
         navigate('/shelters')
-        alert(`${shelter.name} succesfully deleted!`)
     }
 
     function handleNewDogSubmit(newDog) {
         setShelter({...shelter, dogs: [...shelter.dogs, newDog]})
         setIsHidden(true)
-      }
+    }
     
     function handleNewCatSubmit(newCat) {
-    setShelter({...shelter, cats: [...shelter.cats, newCat]})
-    setIsHidden(true)
+        setShelter({...shelter, cats: [...shelter.cats, newCat]})
+        setIsHidden(true)
     }
    
 
@@ -68,13 +63,14 @@ function ShelterDetails( {handleShelterDelete} ) {
                         <div className= {isHidden ? 'not-visible' : 'visible'}>
                             <NewDogForm shelter = {shelter} handleNewDogSubmit = {handleNewDogSubmit}/>
                         </div>
-                    <p>There {totalDogs > 1 ? "are" : "is"} {totalDogs} {totalDogs > 1 ? "dogs" : "dog"} available for adoption.</p>
+                    <p>There {shelter.dogs.lengthDogs > 1 ? "are" : "is"} {shelter.dogs.length} {shelter.dogs.length > 1 ? "dogs" : "dog"} available for adoption.</p>
                     {shelter.dogs.map(dog =>
                         <div key={dog.id}>
                         <h2>{dog.name}</h2>
                         <img src = {dog.image_url} alt = {dog.name} height="300"/>
                         <h3>Breed: {dog.breed}</h3>
                         <h4>ID: {dog.id} Age: {dog.age} Sex: {dog.sex}</h4>
+                        //send nested
                         <Link to={`/dogs/${dog.id}`}>More Details</Link>
                     </div>
                     )}
@@ -85,7 +81,7 @@ function ShelterDetails( {handleShelterDelete} ) {
                         <div className= {isHidden ? 'not-visible' : 'visible'}>
                             <NewCatForm shelter = {shelter} handleNewCatSubmit = {handleNewCatSubmit}/>
                         </div>
-                    <p>There {totalCats > 1 ? "are" : "is"} {totalCats} {totalCats > 1 ? "cats" : "cat"} available for adoption.</p>
+                    <p>There {shelter.cats.length > 1 ? "are" : "is"} {shelter.cats.length} {shelter.cats.length > 1 ? "cats" : "cat"} available for adoption.</p>
                     {shelter.cats.map(cat =>
                         <div key={cat.id}>
                         <h2>{cat.name}</h2>

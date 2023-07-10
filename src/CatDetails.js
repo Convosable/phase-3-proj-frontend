@@ -23,6 +23,7 @@ function CatDetails( {handleCatDelete, handleCatUpdate} ) {
 
 
     useEffect(() => {
+        //find not fetch
         fetch(`http://localhost:9292/cats/${params.id}`)
         .then(r => r.json())
         .then((c) => setCat(c))

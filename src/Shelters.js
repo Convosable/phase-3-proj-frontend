@@ -9,7 +9,7 @@ function Shelters( {sheltersList} ) {
         <div>
             <div>
                 Create a new shelter:
-                <button onClick = {() => navigate('/new-shelter-form')}>Click Here</button>
+                <button onClick = {() => navigate('/shelters/new')}>Click Here</button>
             </div>
             {sheltersList.map((shelter) => 
                 <div key = {shelter.id}>
