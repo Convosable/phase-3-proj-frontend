@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
-function DogDetails( {handleDogDelete, handleDogUpdate} ) {
+function DogDetails( {handleDogDelete, handleDogUpdate, sheltersList} ) {
 
     const [isHidden, setIsHidden] = useState(true)
     const [dog, setDog] = useState({
@@ -12,7 +12,6 @@ function DogDetails( {handleDogDelete, handleDogUpdate} ) {
         sex: "",
         weight: "",
         size: "",
-        shelter: {},
         shelter_id: "",
         created_at: "",
         updated_at: ""
@@ -20,45 +19,48 @@ function DogDetails( {handleDogDelete, handleDogUpdate} ) {
 
     const params = useParams();
     let navigate = useNavigate();
+    // const correctShelter = sheltersList.find(shelter => {
+    //     const dog = shelter.dogs.find(d => d.id === parseInt(params.id))
+    //     return dog
+    // })
+
+    // const correctDog = correctShelter.dogs.find(d => d.id === parseInt(params.id))
 
     useEffect(() => {
-        fetch(`http://localhost:9292/dogs/${params.id}`)
-        .then(r => r.json())
-        .then((d) => {setDog(d)})
-    },[])
+        const correctShelter = sheltersList.find((shelter) => {
+            const dog = shelter.dogs.find((d) => d.id === parseInt(params.id));
+            return dog;
+          });
+      
+          if (correctShelter) {
+            const correctDog = correctShelter.dogs.find((d) => d.id === parseInt(params.id));
+            if (correctDog) {
+              setDog(correctDog);
+            }
+          }
+        }, []);
 
-    function adoptDog() {
+    function deleteDog() {
         fetch(`http://localhost:9292/dogs/${params.id}`, {
             method: 'DELETE'
         })
-        .then(r => r.json())
-        .then(dog => handleDogDelete(dog))
+        .then(() => handleDogDelete(params.id, dog.shelter_id));
         navigate(`/shelters/${dog.shelter_id}`)
         alert(`Congratulations on adopting ${dog.name}!`)
     }
 
-    function updateDogDetails() {
+    function updateDogDetails(e) {
+        e.preventDefault();
         fetch(`http://localhost:9292/dogs/${params.id}`, {
             method: 'PATCH',
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({
-                name: dog.name,
-                image_url: dog.image_url,
-                age: dog.age,
-                breed: dog.breed,
-                sex: dog.sex,
-                weight: dog.weight,
-                size: dog.size,
-                shelter: dog.shelter.name,
-                shelter_id: dog.shelter_id,
-                created_at: dog.created_at,
-                updated_at: dog.updated_at
-            }),
+            body: JSON.stringify(dog),
         })
         .then(r => r.json())
         .then((updatedDog) => handleDogUpdate(updatedDog))
+        setIsHidden(true)
     }
 
     function handleChange(e) {
@@ -75,13 +77,10 @@ function DogDetails( {handleDogDelete, handleDogUpdate} ) {
             <h2>Breed: {dog.breed}</h2>
             <h4>Age: {dog.age} Sex: {dog.sex} </h4>
             <h4>Weight: {dog.weight} lbs. Size: {dog.size}</h4>
-            <Link to={`/shelters/${dog.shelter_id}`}>
-                <h4>Shelter: {dog.shelter.name}</h4>
-            </Link>
             <h4>Posted: {dog.created_at}</h4>
             <h4>Updated: {dog.updated_at}</h4>
             <button onClick = {() => setIsHidden(isHidden => !isHidden)}>Edit</button>
-            <button onClick = {adoptDog}>Adopt Me!</button>
+            <button onClick = {deleteDog}>Adopt Me!</button>
 
 
             <div className= {isHidden ? 'not-visible' : 'visible'}>

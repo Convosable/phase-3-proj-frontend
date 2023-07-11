@@ -4,9 +4,12 @@ Adopt a Pet is an application that allows the user to view the available dogs an
 
 ## Usage
 
-Once the application is loaded, the user can use the NavBar to access Shelters component.
+The backend database is available here: https://github.com/Convosable/phase-3-sinatra-react-project
 
-In the "Shelters" component, each Shelter's name is shown as a link to its own page. When the user clicks the link, all avvailble dogs and cats for a specific shelter will be listed.
+To start the application: 
+In the terminal, run:
+$npm install
+$npm start
 
 ## Future Updates
 

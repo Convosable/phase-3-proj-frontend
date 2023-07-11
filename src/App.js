@@ -26,37 +26,63 @@ function App() {
 
   if (isLoading) return <h1>Loading...</h1>
 
+//Shelter
+
   function handleNewShelterSubmit(newShelter) {
     setSheltersList([...sheltersList, newShelter])
   }
 
   function handleShelterDelete(id) {
-    console.log(id)
     const updatedShelters = sheltersList.filter(s => s.id !== parseInt(id))
     setSheltersList(updatedShelters)
   }
 
-  console.log(sheltersList)
 
-  function handleCatDelete(cat) {
+// Cat
+
+  function handleCatDelete(catId, shelterId) {
+    console.log(catId)
+    console.log(shelterId)
     const updatedShelters = sheltersList.map(shelter => {
-      if (shelter.id === cat.shelter_id) {
-        const updatedCats = shelter.cats.filter(c => c.id !== cat.id);
+      if (shelter.id === shelterId) {
+        const updatedCats = shelter.cats.filter(c => c.id !== parseInt(catId));
         return {...shelter, cats: updatedCats}
       }
-      return shelter
-    })
+        return shelter
+      })
     setSheltersList(updatedShelters)
   }
+  
+    function handleCatUpdate(cat) {
+      const updatedShelters = sheltersList.map(shelter => {
+        if (shelter.id === cat.shelter_id) {
+          const updatedCats = shelter.cats.map(c => {
+            if(c.id === cat.id) {
+              return cat
+            }
+            return c
+          })
+          return {...shelter, cats: updatedCats}
+        }
+        return shelter
+      })
+      setSheltersList(updatedShelters)
+    }
 
-  function handleDogDelete(dog) {
+
+// Dog
+
+
+  function handleDogDelete(dogId, shelterId) {
+    console.log(dogId)
+    console.log(shelterId)
     const updatedShelters = sheltersList.map(shelter => {
-      if(shelter.id === dog.shelter_id) {
-        const updatedDogs = shelter.dogs.filter(d => d.id !== dog.id);
+      if (shelter.id === shelterId) {
+        const updatedDogs = shelter.dogs.filter(d => d.id !== parseInt(dogId));
         return {...shelter, dogs: updatedDogs}
       }
-      return shelter
-    })
+        return shelter
+      })
     setSheltersList(updatedShelters)
   }
 
@@ -76,30 +102,14 @@ function App() {
     setSheltersList(updatedShelters)
   }
 
-  function handleCatUpdate(cat) {
-    const updatedShelters = sheltersList.map(shelter => {
-      if (shelter.id === cat.shelter_id) {
-        const updatedCats = shelter.cats.map(c => {
-          if(c.id === cat.id) {
-            return cat
-          }
-          return c
-        })
-        return {...shelter, cats: updatedCats}
-      }
-      return shelter
-    })
-    setSheltersList(updatedShelters)
-  }
-
 
   return (
     <div className="App">
       <NavBar />
       <Routes>
         <Route exact path="/" element={<Homepage />} />
-        <Route path="/dogs/:id" element={<DogDetails handleDogDelete = {handleDogDelete} handleDogUpdate = {handleDogUpdate}/>} />
-        <Route exact path="/cats/:id" element={<CatDetails handleCatDelete = {handleCatDelete} handleCatUpdate = {handleCatUpdate}/>} />
+        <Route path="/shelters/:id/dogs/:id" element={<DogDetails handleDogDelete = {handleDogDelete} handleDogUpdate = {handleDogUpdate} sheltersList = {sheltersList}/> } />
+        <Route exact path="/shelters/:id/cats/:id" element={<CatDetails handleCatDelete = {handleCatDelete} handleCatUpdate = {handleCatUpdate} sheltersList = {sheltersList}/>} />
         <Route exact path="/shelters" element={<Shelters sheltersList={sheltersList} />} />
         <Route exact path="/shelters/:id" element={<ShelterDetails sheltersList={sheltersList} handleShelterDelete = {handleShelterDelete}/>} />
         <Route exact path="/shelters/new" element={<NewShelterForm handleNewShelterSubmit = {handleNewShelterSubmit}/>} />
@@ -109,5 +119,3 @@ function App() {
 }
 
 export default App;
-
-//new-shleter-form is not restful at all!! change to shelters/id/new

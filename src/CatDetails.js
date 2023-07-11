@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
-function CatDetails( {handleCatDelete, handleCatUpdate} ) {
+function CatDetails( {handleCatDelete, handleCatUpdate, sheltersList} ) {
 
     const [isHidden, setIsHidden] = useState(true)
     const [cat, setCat] = useState({
@@ -12,7 +12,6 @@ function CatDetails( {handleCatDelete, handleCatUpdate} ) {
         sex: "",
         weight: "",
         size: "",
-        shelter: {},
         shelter_id: "",
         created_at: "",
         updated_at: ""
@@ -21,46 +20,41 @@ function CatDetails( {handleCatDelete, handleCatUpdate} ) {
     const params = useParams();
     let navigate = useNavigate();
 
-
     useEffect(() => {
-        //find not fetch
-        fetch(`http://localhost:9292/cats/${params.id}`)
-        .then(r => r.json())
-        .then((c) => setCat(c))
-    },[])
+        const correctShelter = sheltersList.find((shelter) => {
+            const cat = shelter.cats.find((c) => c.id === parseInt(params.id));
+            return cat;
+          });
+      
+          if (correctShelter) {
+            const correctCat = correctShelter.cats.find((c) => c.id === parseInt(params.id));
+            if (correctCat) {
+              setCat(correctCat);
+            }
+          }
+        }, []);
 
-    function adoptCat() {
+    function deleteCat() {
         fetch(`http://localhost:9292/cats/${params.id}`, {
             method: 'DELETE'
         })
-        .then(r => r.json())
-        .then(cat => handleCatDelete(cat))
+        .then(() => handleCatDelete(params.id, cat.shelter_id));
         navigate(`/shelters/${cat.shelter_id}`)
         alert(`Congratulations on adopting ${cat.name}!`)
     }
 
-    function updateCatDetails() {
+    function updateCatDetails(e) {
+        e.preventDefault();
         fetch(`http://localhost:9292/cats/${params.id}`, {
             method: 'PATCH',
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({
-                name: cat.name,
-                image_url: cat.image_url,
-                age: cat.age,
-                breed: cat.breed,
-                sex: cat.sex,
-                weight: cat.weight,
-                size: cat.size,
-                shelter: cat.shelter.name,
-                shelter_id: cat.shelter_id,
-                created_at: cat.created_at,
-                updated_at: cat.updated_at
-            }),
+            body: JSON.stringify(cat),
         })
         .then(r => r.json())
         .then((updatedCat) => handleCatUpdate(updatedCat))
+        setIsHidden(true)
     }
 
     function handleChange(e) {
@@ -71,19 +65,16 @@ function CatDetails( {handleCatDelete, handleCatUpdate} ) {
     }
 
     return(
-        <div className='cat-details'>
+        <div className='dog-details'>
             <h1>{cat.name}</h1>
             <img src = {cat.image_url} alt = {cat.name} height="300"/>
             <h2>Breed: {cat.breed}</h2>
             <h4>Age: {cat.age} Sex: {cat.sex} </h4>
             <h4>Weight: {cat.weight} lbs. Size: {cat.size}</h4>
-            <Link to={`/shelters/${cat.shelter_id}`}>
-                <h4>Shelter: {cat.shelter.name}</h4>
-            </Link>
             <h4>Posted: {cat.created_at}</h4>
             <h4>Updated: {cat.updated_at}</h4>
             <button onClick = {() => setIsHidden(isHidden => !isHidden)}>Edit</button>
-            <button onClick = {adoptCat}>Adopt Me!</button>
+            <button onClick = {deleteCat}>Adopt Me!</button>
 
 
             <div className= {isHidden ? 'not-visible' : 'visible'}>

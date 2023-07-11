@@ -28,7 +28,7 @@ function ShelterDetails( {handleShelterDelete, sheltersList} ) {
         fetch(`http://localhost:9292/shelters/${id}`, {
             method: 'DELETE'
         })
-        .then(handleShelterDelete(id))
+        .then(() => handleShelterDelete(id))
         alert(`${shelter.name} succesfully deleted!`) 
         navigate('/shelters')
     }
@@ -69,9 +69,8 @@ function ShelterDetails( {handleShelterDelete, sheltersList} ) {
                         <h2>{dog.name}</h2>
                         <img src = {dog.image_url} alt = {dog.name} height="300"/>
                         <h3>Breed: {dog.breed}</h3>
-                        <h4>ID: {dog.id} Age: {dog.age} Sex: {dog.sex}</h4>
-                        //send nested
-                        <Link to={`/dogs/${dog.id}`}>More Details</Link>
+                        <h4>Age: {dog.age} Sex: {dog.sex}</h4>
+                        <Link to={`/shelters/${shelter.id}/dogs/${dog.id}`}>More Details</Link>
                     </div>
                     )}
                 </div>
@@ -88,7 +87,7 @@ function ShelterDetails( {handleShelterDelete, sheltersList} ) {
                         <img src = {cat.image_url} alt = {cat.name} height="300"/>
                         <h3>Breed: {cat.breed}</h3>
                         <h4>ID: {cat.id} Age: {cat.age} Sex: {cat.sex}</h4>
-                        <Link to={`/cats/${cat.id}`}>More Details</Link>
+                        <Link to={`/shelters/${shelter.id}/cats/${cat.id}`}>More Details</Link>
                     </div>
                     )}
                 </div>
