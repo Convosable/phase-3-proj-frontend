@@ -41,8 +41,6 @@ function App() {
 // Cat
 
   function handleCatDelete(catId, shelterId) {
-    console.log(catId)
-    console.log(shelterId)
     const updatedShelters = sheltersList.map(shelter => {
       if (shelter.id === shelterId) {
         const updatedCats = shelter.cats.filter(c => c.id !== parseInt(catId));
@@ -74,8 +72,6 @@ function App() {
 
 
   function handleDogDelete(dogId, shelterId) {
-    console.log(dogId)
-    console.log(shelterId)
     const updatedShelters = sheltersList.map(shelter => {
       if (shelter.id === shelterId) {
         const updatedDogs = shelter.dogs.filter(d => d.id !== parseInt(dogId));

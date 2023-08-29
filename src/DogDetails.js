@@ -19,13 +19,7 @@ function DogDetails( {handleDogDelete, handleDogUpdate, sheltersList} ) {
 
     const params = useParams();
     let navigate = useNavigate();
-    // const correctShelter = sheltersList.find(shelter => {
-    //     const dog = shelter.dogs.find(d => d.id === parseInt(params.id))
-    //     return dog
-    // })
-
-    // const correctDog = correctShelter.dogs.find(d => d.id === parseInt(params.id))
-
+    
     useEffect(() => {
         const correctShelter = sheltersList.find((shelter) => {
             const dog = shelter.dogs.find((d) => d.id === parseInt(params.id));
